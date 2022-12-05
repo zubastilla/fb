@@ -1,11 +1,13 @@
 import praw
 import time
 
-reddit = praw.Reddit(client_id='p5qoOX_9X83J0gZQaJjk5w',
-                     client_secret='HSJm4JXYArA3GoElueROt37A5u4IfA',
-                     username='zubastilla',
-                     password='Pukunqazwsxqazwsx1',
-                     user_agent='MyAPI/0.0.1')
+import constants
+
+reddit = praw.Reddit(client_id=constants.REDDIT_CLIENT_ID,
+                     client_secret=constants.REDDIT_CLIENT_SECRET,
+                     username=constants.REDDIT_USERNAME,
+                     password=constants.REDDIT_PASSWORD,
+                     user_agent=constants.REDDIT_USER_AGENT)
 
 def get_images(subreddit, number_of_posts):
     subreddit = reddit.subreddit(subreddit)
@@ -18,9 +20,6 @@ def get_images(subreddit, number_of_posts):
         if not sub.stickied and (int(time.time())-int(sub.created)<86400):
             # post_dict[sub.id] = {'title':sub.title,
             # 'url':sub.url,'ups':sub.ups,'created':int(sub.created)}
-            print(sub)
             post_list.append(sub.url)
     # return post_dict
     return post_list
-
-get_images('greentext',5)
